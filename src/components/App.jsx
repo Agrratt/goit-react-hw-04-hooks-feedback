@@ -14,11 +14,40 @@ export default function App() {
       const label = Object.keys(this.state);
 
   //не понимаю какой сэт заменить options
-  const onHandleIncrement = (options) => {
+  const onHandleIncrementOld = (options) => {
     this.setState(prevState => {
       return { [options]: prevState[options] + 1 }
     });
-  }
+  };
+
+  const onHandleIncrement = evt => {
+    switch (evt.target.name) {
+      case 'good':
+        setGood(evt.target.value);
+        break;
+      
+      case 'neutral':
+        setNeutral(evt.target.value);
+        break;
+      
+      case 'bad':
+        setBad(evt.target.value);
+        break;
+      
+      default:
+        return;
+    }
+  };
+  
+
+  // countTotalFeedback = () => {
+  //   return  Object.values(this.state).reduce((acc, value) => acc + value, 0);
+  // };
+
+  //   countPositiveFeedbackPercentage = () => {
+  //     return Math.round(100 / (this.countTotalFeedback() / this.state.good))
+  //   };
+
 
   return (
     <Container>
@@ -29,7 +58,7 @@ export default function App() {
             
         </Section>
         
-        <Section title='Statistics'>
+        {/* <Section title='Statistics'>
 
           {this.countTotalFeedback() > 0 ? 
           <Statistics
@@ -40,14 +69,14 @@ export default function App() {
               positive={this.countPositiveFeedbackPercentage() } /> :
             <Notification title='There is no feedback' />} 
           
-        </Section>
+        </Section> */}
         
     </Container>
   )
 
 }
 
-class OldApp extends Component {
+// class OldApp extends Component {
   // state = {
   //   good: 0,
   //   neutral: 0,
@@ -60,13 +89,13 @@ class OldApp extends Component {
   //   });
   // }
 
-  countTotalFeedback = () => {
-    return  Object.values(this.state).reduce((acc, value) => acc + value, 0);
-  };
+  // countTotalFeedback = () => {
+  //   return  Object.values(this.state).reduce((acc, value) => acc + value, 0);
+  // };
 
-    countPositiveFeedbackPercentage = () => {
-      return Math.round(100 / (this.countTotalFeedback() / this.state.good))
-    };
+  //   countPositiveFeedbackPercentage = () => {
+  //     return Math.round(100 / (this.countTotalFeedback() / this.state.good))
+  //   };
 
   // render() {
       // const { good, neutral, bad } = this.state;
@@ -98,6 +127,6 @@ class OldApp extends Component {
   // );
   // }
   
-};
+// };
 
 // export default App;
