@@ -10,66 +10,59 @@ export default function App() {
   const [neutral, setNeutral] = useState(0);
   const [bad, setBad] = useState(0);
 
-//как редактировать это:
-      const label = Object.keys(this.state);
-
-  //не понимаю какой сэт заменить options
-  const onHandleIncrementOld = (options) => {
-    this.setState(prevState => {
-      return { [options]: prevState[options] + 1 }
-    });
-  };
+  const label = Object.keys({good, neutral, bad});
 
   const onHandleIncrement = evt => {
-    switch (evt.target.name) {
+    switch (evt) {
       case 'good':
-        setGood(evt.target.value);
+        setGood(good + 1);
         break;
       
       case 'neutral':
-        setNeutral(evt.target.value);
+        setNeutral(neutral + 1);
         break;
       
       case 'bad':
-        setBad(evt.target.value);
+        setBad(bad + 1);
         break;
       
       default:
         return;
     }
   };
+
   
+  const countTotalFeedback = () => {
+    return good + neutral + bad;
+  };
 
-  // countTotalFeedback = () => {
-  //   return  Object.values(this.state).reduce((acc, value) => acc + value, 0);
-  // };
-
-  //   countPositiveFeedbackPercentage = () => {
-  //     return Math.round(100 / (this.countTotalFeedback() / this.state.good))
-  //   };
-
+  const countPositiveFeedbackPercentage = () => {
+    return Math.round(100 / (countTotalFeedback() / good))
+  };
+  
 
   return (
     <Container>
         <Section title='Please leave feedback'>
           <FeedbackOptions
             onLeaveFeedback={onHandleIncrement}
-            options={label} />
+          options={label}
+        />
             
         </Section>
         
-        {/* <Section title='Statistics'>
+        <Section title='Statistics'>
 
-          {this.countTotalFeedback() > 0 ? 
+          {countTotalFeedback() > 0 ? 
           <Statistics
               good={good}
               neutral={neutral}
               bad={bad}
-              total={this.countTotalFeedback()}
-              positive={this.countPositiveFeedbackPercentage() } /> :
+              total={countTotalFeedback()}
+              positive={countPositiveFeedbackPercentage() } /> :
             <Notification title='There is no feedback' />} 
           
-        </Section> */}
+        </Section>
         
     </Container>
   )
